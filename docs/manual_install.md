@@ -48,7 +48,7 @@ working_dir=
 package_command=/${HOME}/talend/job2docker/bin/job2docker
 build_command=/${HOME}/talend/job2docker/job2docker_build/build
 deploy_command=/${HOME}/talend/job2docker/bin/deploy-aws
-job_owner=${USER}
+client_name=${USER}
 shell_log_file=/${HOME}/talend/j2d/job2docker.log
 ````
 

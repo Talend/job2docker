@@ -17,22 +17,28 @@ export INFO_LOG=true
 #export DEBUG_LOG=true
 
 if [ "${1:-}" == "-h" ]; then
-    declare usage="./build <job_owner> <job_name> <job_version> <job_tgz_file> [ <job_parent_id> ]"
+    declare usage="./build <client_name> <project_name> <job_name> <job_version> <job_tgz_file> [ <job_parent_id> ]"
     echo "${usage}"
     exit
 fi
 
-declare -r job_owner="${1:-}"
-declare -r job_name="${2:-}"
-declare -r job_version="${3:-}"
-declare -r job_tgz_file="${4:-}"
-declare -r job_parent_dir="${5:-/talend}"
+declare -r client_name="${1:-}"
+declare -r project_name="${2:-}"
+declare -r job_name="${3:-}"
+declare -r job_version="${4:-}"
+declare -r job_tgz_file="${5:-}"
+declare -r job_parent_dir="${6:-/talend}"
 
-required job_owner job_name job_version job_tgz_file job_parent_dir
+declare -r client_name_toLower=$(echo "${client_name}" | awk '{print tolower($0)}')
+declare -r project_name_toLower=$(echo "${project_name}" | awk '{print tolower($0)}')
+declare -r job_name_toLower=$(echo "${job_name}" | awk '{print tolower($0)}')
 
-declare -r image_tag="${job_owner}/${job_name}:${job_version}"
+required client_name project_name job_name job_version job_tgz_file job_parent_dir
 
-infoVar job_owner
+declare -r image_tag="${client_name_toLower}/${project_name_toLower}/${job_name_toLower}:${job_version}"
+
+infoVar client_name 
+infoVar project_name
 infoVar job_name
 infoVar job_version
 infoVar job_tgz_file
